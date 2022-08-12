@@ -1,17 +1,10 @@
-package templates
+package main
 
 import (
 	"encoding/json"
 	"log"
 	"net/http"
 )
-
-type Animal struct {
-	Name    string `json:"name"`
-	Type    string `json:"type"`
-	Habitat string `json:"habitat"`
-	Age     int    `json:"age"`
-}
 
 func CreateAnimal(w http.ResponseWriter, r *http.Request) {
 
@@ -23,6 +16,8 @@ func CreateAnimal(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Printf("Persisting %s animal record", animal.Name)
+
+	//Persist data here
 
 	json.NewEncoder(w).Encode(&animal)
 }

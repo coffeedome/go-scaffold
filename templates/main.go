@@ -1,15 +1,24 @@
-package templates
+package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"log"
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 func main() {
 
-	router := gin.Default()
+	router := chi.NewRouter()
 
-	router.POST("/animals", CreateAnimal)
+	router.Use(middleware.Logger)
 
-	router.Run()
+	router.Post("/api/animal", CreateAnimal)
+	router.Get("/api/animal", ListAnimals)
+	router.Get("/api/animal/{id}", GetAnimalById)
+	router.Put("/api/animal/{id}", UpdateAnimals)
 
+	log.Print("Animals API Server listening on port 3000...")
+	log.Fatal(http.ListenAndServe(":3000", router))
 }
