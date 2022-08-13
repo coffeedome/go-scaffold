@@ -11,9 +11,11 @@ import (
 */
 func CreateDir(dirName string, permissions fs.FileMode) error {
 	err := os.Mkdir(dirName, permissions)
-	if err != nil {
+
+	if err != nil && !os.IsExist(err) {
 		return err
 	}
+
 	return nil
 }
 
@@ -22,8 +24,10 @@ func CreateDir(dirName string, permissions fs.FileMode) error {
 */
 func CreateFile(fileName string) (*os.File, error) {
 	file, err := os.Create(fmt.Sprintf("scaffolding/%s.go", fileName))
+
 	if err != nil {
 		return nil, err
 	}
+
 	return file, nil
 }
