@@ -1,11 +1,7 @@
 package models
 
-import (
-	"github.com/google/uuid"
-)
-
 type Animal struct {
-	ID      uuid.UUID
+	ID      string
 	Name    string
 	Type    string
 	Habitat string

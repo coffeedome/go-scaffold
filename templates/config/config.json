@@ -1,0 +1,13 @@
+{
+    "database": {
+        "db_connection_string":"host=animalsdb user=postgres password=postgres dbname=animal port=5432 sslmode=disable"
+    },
+    "message_brokers":{
+        "publish_broker_connection_string": "",
+        "consume_broker_connection_string": ""
+    },
+    "api": {
+        "port":8080
+    }
+
+}

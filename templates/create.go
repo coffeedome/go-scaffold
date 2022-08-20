@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"templates/models"
 )
 
 func CreateAnimal(w http.ResponseWriter, r *http.Request) {
 
-	animal := Animal{}
+	var animal models.Animal
 
 	err := json.NewDecoder(r.Body).Decode(&animal)
 	if err != nil {
@@ -17,7 +18,9 @@ func CreateAnimal(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Persisting %s animal record", animal.Name)
 
-	//Persist data here
+	DbInstanceRepository.CreateAnimal(r.Context(), animal)
 
+	w.WriteHeader(http.StatusAccepted)
 	json.NewEncoder(w).Encode(&animal)
+	log.Printf("Animal %s has been created", animal.ID)
 }

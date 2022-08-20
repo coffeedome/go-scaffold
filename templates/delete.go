@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/chi"
 )
 
-func DeleteAnimalById(w http.ResponseWriter, r *http.Request) {
+func DeleteAnimal(w http.ResponseWriter, r *http.Request) {
 
 	animalID := chi.URLParam(r, "animalID")
 
