@@ -23,7 +23,7 @@ func DeleteAnimal(w http.ResponseWriter, r *http.Request) {
 
 	animalOut, err := DbInstanceRepository.DeleteAnimal(r.Context(), animal)
 	if err != nil {
-		log.Print("Failed to delete animal record: %s", err)
+		log.Printf("Failed to delete animal record: %s", err)
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(err)
 		return

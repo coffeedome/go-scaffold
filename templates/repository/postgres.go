@@ -20,6 +20,8 @@ func (repository *PostgresRepository) InitPostgresRepository(dbConnectionString 
 		return err
 	}
 
+	repository.connection.AutoMigrate(&models.Animal{})
+
 	return nil
 }
 

@@ -1,11 +1,9 @@
 package models
 
 type Animal struct {
-	ID      string
-	Name    string
-	Type    string
-	Habitat string
-	Age     int
+	ID      string `json:"id" gorm:"primaryKey"`
+	Name    string `json:"name"`
+	Type    string `json:"type"`
+	Habitat string `json:"habitat"`
+	Age     int    `json:"age"`
 }
-
-type Animals []Animal
