@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"templates/config"
-	"templates/handlers"
 	"templates/repository"
 
 	"github.com/go-chi/chi/v5"
@@ -24,10 +23,10 @@ func main() {
 
 	router.Use(middleware.Logger)
 
-	router.Post("/api/animal", handlers.CreateAnimal)
-	router.Get("/api/animal", handlers.ListAnimals)
-	router.Get("/api/animal/{id}", handlers.GetAnimalById)
-	router.Put("/api/animal/{id}", handlers.UpdateAnimals)
+	router.Post("/api/animal", CreateAnimal)
+	router.Get("/api/animal", GetAnimals)
+	router.Get("/api/animal/{id}", GetAnimalById)
+	router.Put("/api/animal/{id}", UpdateAnimals)
 
 	log.Printf("Animals API Server listening on port %d...", config.AppConfig.ApiPort)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", config.AppConfig.ApiPort), router))

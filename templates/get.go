@@ -10,13 +10,15 @@ import (
 
 func GetAnimalById(w http.ResponseWriter, r *http.Request) {
 
-	animalID := chi.URLParam(r, "animalID")
+	animalID := chi.URLParam(r, "id")
 
 	log.Printf("Getting record for animal id %s", animalID)
 
-	animal := Animal{}
+	animal, err := DbInstanceRepository.GetAnimalById(r.Context(), animalID)
+	if err != nil {
+		w.WriteHeader(http.StatusAccepted)
 
-	//Get data here
+	}
 
 	json.NewEncoder(w).Encode(&animal)
 

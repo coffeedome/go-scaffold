@@ -4,19 +4,33 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-
-	"github.com/go-chi/chi"
+	"templates/models"
 )
 
 func DeleteAnimal(w http.ResponseWriter, r *http.Request) {
 
-	animalID := chi.URLParam(r, "animalID")
+	var animal models.Animal
 
-	log.Printf("Deleting record for animal id %s", animalID)
+	err := json.NewDecoder(r.Body).Decode(&animal)
+	if err != nil {
+		log.Println(err)
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(err)
+		return
+	}
 
-	animalUpdates := Animal{}
+	log.Printf("Deleting record for animal id %s", animal.ID)
 
-	//Get animal to update into currentAnimalRecord var
+	animalOut, err := DbInstanceRepository.DeleteAnimal(r.Context(), animal)
+	if err != nil {
+		log.Print("Failed to delete animal record: %s", err)
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(err)
+		return
+	}
 
-	json.NewDecoder(r.Body).Decode(&animalUpdates)
+	w.WriteHeader(http.StatusAccepted)
+	json.NewEncoder(w).Encode(&animalOut)
+	log.Printf("Animal id %s has been deleted", animal.ID)
+
 }

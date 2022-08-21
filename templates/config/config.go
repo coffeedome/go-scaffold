@@ -9,7 +9,7 @@ type Config struct {
 	ApiPort                       int    `mapstructure:"api_port"`
 }
 
-var AppConfig *Config
+var AppConfig Config
 
 func LoadConfig() {
 
@@ -21,6 +21,6 @@ func LoadConfig() {
 	AppConfig.DbConnectionString = viper.Get("database.db_connection_string").(string)
 	AppConfig.PublishBrokerConnectionString = viper.Get("message_brokers.publish_broker_connection_string").(string)
 	AppConfig.ConsumeBrokerConnectionString = viper.Get("message_brokers.consume_broker_connection_string").(string)
-	AppConfig.ApiPort = viper.Get("api.port").(int)
+	AppConfig.ApiPort = int(viper.Get("api.port").(float64))
 
 }
